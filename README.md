@@ -22,6 +22,51 @@ Follow these steps to install and run the Reddit clone app on your local machine
 6) Expose the app as a Kubernetes service: `kubectl expose deployment reddit-deployment --type=NodePort --port=5000`
 
 
+##Deployment.yml file in kubernetes
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reddit-clone-deployment
+  labels:
+    app: reddit-clone
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reddit-clone
+  template:
+    metadata:
+      labels:
+        app: reddit-clone
+    spec:
+      containers:
+      - name: reddit-clone
+        image: sunnyb636/reddit-clone
+        ports:
+        - containerPort: 3000
+
+
+
+##service.yml file in kubernetes:
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: reddit-clone-service
+  labels:
+    app: reddit-clone
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    targetPort: 3000
+    nodePort: 31000
+  selector:
+    app: reddit-clone
+
+
+
 
 ## Contributing
 If you'd like to contribute to this project, please open an issue or submit a pull request.
