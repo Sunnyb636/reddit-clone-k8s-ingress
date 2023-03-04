@@ -25,25 +25,45 @@ Follow these steps to install and run the Reddit clone app on your local machine
 ##Deployment.yml file in kubernetes
 
 apiVersion: apps/v1
+
 kind: Deployment
+
 metadata:
-  name: reddit-clone-deployment
+
+name: reddit-clone-deployment
+  
   labels:
+    
     app: reddit-clone
+
 spec:
+  
   replicas: 2
+  
   selector:
+    
     matchLabels:
+      
       app: reddit-clone
+  
   template:
+    
     metadata:
+      
       labels:
+        
         app: reddit-clone
+    
     spec:
+      
       containers:
+      
       - name: reddit-clone
+        
         image: sunnyb636/reddit-clone
+        
         ports:
+        
         - containerPort: 3000
 
 
